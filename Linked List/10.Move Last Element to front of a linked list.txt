@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    Node *moveToFront(Node *head) {
+        if(head->next==NULL)
+        {
+            return head;
+        }
+        
+        Node* temp=head;
+        Node* x=head;
+        
+        while(temp->next->next != NULL)
+        {
+            temp=temp->next;
+        }
+        
+         head=temp->next;
+         temp->next=NULL;
+         head->next=x;
+        
+        return head;
+    }
+};
