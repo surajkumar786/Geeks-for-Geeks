@@ -1,0 +1,83 @@
+1)using map
+------------------
+class Solution {
+  public:
+    Node* findIntersection(Node* head1, Node* head2) {
+        unordered_map<int,int>mp;
+        
+        Node* temp=head1;
+        
+        while(temp)
+        {
+            mp[temp->data]++;
+            temp=temp->next;
+        }
+        
+        temp=head2;
+        Node* res=NULL;
+        Node* curr=NULL;
+        
+        
+        while(temp)
+        {
+            if(mp.find(temp->data) != mp.end())
+            {
+               Node* tem=new Node(temp->data);
+               if(res==NULL) res=tem;
+               else curr->next=tem;
+               curr=tem;
+            }
+            temp=temp->next;
+        }
+        
+        return res;
+    }
+};
+
+
+2)using 2 pointer each pointer on each linked list head
+-------------------
+class Solution {
+  public:
+    Node* findIntersection(Node* head1, Node* head2) {
+        Node* ptr1=head1;
+        Node* ptr2=head2;
+        Node* res=NULL;
+        Node* curr=NULL;
+        
+        while(ptr1 && ptr2)
+        {
+            if(ptr1->data == ptr2->data)
+            {
+                Node* temp=new Node(ptr1->data);
+                
+                if(res==NULL)
+                {
+                    res=temp;
+                }
+                else
+                {
+                    curr->next=temp;
+                }
+                
+                curr=temp;
+                
+                ptr1=ptr1->next;
+                ptr2=ptr2->next;
+            }
+            else
+            {
+                if(ptr1->data < ptr2->data)
+                {
+                    ptr1=ptr1->next;
+                }
+                else
+                {
+                    ptr2=ptr2->next;
+                }
+            }
+        }
+        
+        return res;
+    }
+};
